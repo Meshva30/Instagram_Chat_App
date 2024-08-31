@@ -1,13 +1,16 @@
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:pr_8_chat_app/view/screen/home/insta_homepage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 import '../firebase_services/auth_services.dart';
+import '../firebase_services/chat_services.dart';
 import '../firebase_services/google_services.dart';
-import '../view/screen/home/home.dart';
+import '../view/screen/home/insta_homepage.dart';
 import '../view/screen/signup/signup_screen.dart';
-
 
 class AuthController extends GetxController {
   TextEditingController txtemail = TextEditingController();
@@ -23,13 +26,16 @@ class AuthController extends GetxController {
   RxString url = ''.obs;
   RxString receiveremail = ''.obs;
   RxString receivername = ''.obs;
+
+  final ImagePicker picker = ImagePicker();
+
   @override
   void onInit() {
-
     super.onInit();
     UserDetails();
   }
-  void getreceiver(String email,String name) {
+
+  void getreceiver(String email, String name) {
     receiveremail.value = email;
     receivername.value = name;
   }
@@ -111,7 +117,7 @@ class AuthController extends GetxController {
 
   void emaillogout() async {
     await AuthServices.authServices.signout();
-     GoogleSignInServices.googleSignInServices.emailLogout();
+    GoogleSignInServices.googleSignInServices.emailLogout();
     Fluttertoast.showToast(
       msg: "Logged out successfully",
       toastLength: Toast.LENGTH_SHORT,
@@ -124,6 +130,66 @@ class AuthController extends GetxController {
     Get.off(() => SignupScreen());
   }
 
+  Future<void> pickImage() async {
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      await uploadImage(File(image.path));
+    } else {
+      Get.snackbar(
+        'No Image Selected',
+        'Please select an image to send.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.orange,
+        colorText: Colors.white,
+      );
+    }
+  }
+
+
+  Future<void> uploadImage(File image) async {
+    try {
+      String fileName = basename(image.path);
+      Reference ref = FirebaseStorage.instance.ref().child('chat_images/$fileName');
+
+      UploadTask uploadTask = ref.putFile(image);
+      TaskSnapshot snapshot = await uploadTask;
+
+
+      String downloadUrl = await snapshot.ref.getDownloadURL();
+
+
+      sendMessage(downloadUrl, isImage: true);
+    } catch (e) {
+      Get.snackbar(
+        'Upload Failed',
+        'Failed to upload image: $e',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }
+
+
+  void sendMessage(String content, {bool isImage = false}) {
+    Map<String, dynamic> chatData = {
+      'sender': GoogleSignInServices.googleSignInServices.currentUser()!.email,
+      'receiver': receiveremail.value,
+      'message': content,
+      'timestamp': DateTime.now(),
+      'isImage': isImage,
+    };
+
+    ChatServices.chatServices.insertchat(
+        chatData,
+        GoogleSignInServices.googleSignInServices.currentUser()!.email!,
+        receiveremail.value);
+
+    if (!isImage) {
+      txtmessage.clear();
+    }
+  }
 
   bool validateEmail(String email) {
     if (email.isEmpty) {

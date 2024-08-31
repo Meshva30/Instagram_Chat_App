@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
+import 'package:pr_8_chat_app/controller/theme_controller.dart';
 import '../../../controller/auth_controller.dart';
 import '../../../firebase_services/chat_services.dart';
 import '../../../firebase_services/google_services.dart';
@@ -12,6 +13,7 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthController controller = Get.put(AuthController());
+    final ThemeController themeController = Get.put(ThemeController());
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -26,9 +28,7 @@ class ChatScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Icon(Icons.call),
-
           ),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Icon(Icons.videocam_outlined),
@@ -71,62 +71,83 @@ class ChatScreen extends StatelessWidget {
                     child: Column(
                       children: List.generate(
                         chatlist.length,
-                            (index) => Align(
-                          alignment: (chatlist[index].sender ==
-                              GoogleSignInServices.googleSignInServices
-                                  .currentUser()!
-                                  .email
-                              ? Alignment.centerRight
-                              : Alignment.centerLeft),
-                          child: Container(
+                            (index) {
+                          var chat = chatlist[index];
+                          var formattedTime = chat.timestamp != null
+                              ? DateFormat('hh:mm a')
+                              .format(chat.timestamp!.toDate())
+                              : '';
+
+                          return Align(
+                            alignment: (chat.sender ==
+                                GoogleSignInServices
+                                    .googleSignInServices
+                                    .currentUser()!
+                                    .email
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft),
                             child: GestureDetector(
                               onLongPress: () {
-                                if (chatlist[index].sender ==
-                                    GoogleSignInServices.googleSignInServices
+                                if (chat.sender ==
+                                    GoogleSignInServices
+                                        .googleSignInServices
                                         .currentUser()!
                                         .email) {
                                   showMenu(
                                     context: context,
-                                    position: const RelativeRect.fromLTRB(100, 100, 0, 0), // Adjust position as needed
+                                    position: const RelativeRect.fromLTRB(
+                                        100, 100, 0, 0),
                                     items: [
-                                      
                                       PopupMenuItem(
                                         child: const Text('Edit'),
                                         onTap: () {
-                                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                                            
-                                            controller.txtedit = TextEditingController(text: chatlist[index].message);
-                    
+                                          WidgetsBinding.instance
+                                              .addPostFrameCallback((_) {
+                                            controller.txtedit =
+                                                TextEditingController(
+                                                    text: chat.message);
+
                                             showDialog(
                                               context: context,
                                               builder: (context) {
                                                 return AlertDialog(
-                                                  title: const Text('Edit Message'),
+                                                  title: const Text(
+                                                      'Edit Message'),
                                                   content: TextField(
-                                                    controller: controller.txtedit,
-                                                    decoration: const InputDecoration(
-                                                      hintText: 'Enter your edited message',
+                                                    controller:
+                                                    controller.txtedit,
+                                                    decoration:
+                                                    const InputDecoration(
+                                                      hintText:
+                                                      'Enter your edited message',
                                                     ),
                                                   ),
                                                   actions: [
                                                     TextButton(
                                                       onPressed: () {
-                                                       
-                                                        ChatServices.chatServices.updateChat(
+                                                        ChatServices
+                                                            .chatServices
+                                                            .updateChat(
                                                           chatid: chatid[index],
-                                                          sender: controller.email.value,
-                                                          receiver: controller.receiveremail.value,
-                                                          message: controller.txtedit.text,
+                                                          sender: controller
+                                                              .email.value,
+                                                          receiver: controller
+                                                              .receiveremail
+                                                              .value,
+                                                          message: controller
+                                                              .txtedit.text,
+
                                                         );
-                                                        Get.back(); 
+                                                        Get.back();
                                                       },
                                                       child: const Text('Save'),
                                                     ),
                                                     TextButton(
                                                       onPressed: () {
-                                                        Get.back(); 
+                                                        Get.back();
                                                       },
-                                                      child: const Text('Cancel'),
+                                                      child:
+                                                      const Text('Cancel'),
                                                     ),
                                                   ],
                                                 );
@@ -135,15 +156,17 @@ class ChatScreen extends StatelessWidget {
                                           });
                                         },
                                       ),
-                    
                                       PopupMenuItem(
                                         child: const Text('Delete'),
                                         onTap: () {
-                                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                                            ChatServices.chatServices.deleteChat(
+                                          WidgetsBinding.instance
+                                              .addPostFrameCallback((_) {
+                                            ChatServices.chatServices
+                                                .deleteChat(
                                               chatid: chatid[index],
                                               sender: controller.email.value,
-                                              receiver: controller.receiveremail.value,
+                                              receiver: controller
+                                                  .receiveremail.value,
                                             );
                                           });
                                         },
@@ -152,19 +175,78 @@ class ChatScreen extends StatelessWidget {
                                   );
                                 }
                               },
-                              child: Card(
-                                color: const Color(0xff951AC2),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    chatlist[index].message!,
-                                    style: const TextStyle(color: Colors.white),
+                              child: Column(
+                                crossAxisAlignment: chat.sender ==
+                                    GoogleSignInServices
+                                        .googleSignInServices
+                                        .currentUser()!
+                                        .email
+                                    ? CrossAxisAlignment.end
+                                    : CrossAxisAlignment.start,
+                                children: [
+                                  Card(
+                                    color: const Color(0xff951AC2),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: chat.isImage == true
+                                          ? ClipRRect(
+                                        borderRadius:
+                                        BorderRadius.circular(8),
+                                        child: Image.network(
+                                          chat.message!,
+                                          fit: BoxFit.cover,
+                                          width: 150,
+                                          height: 150,
+                                          errorBuilder: (context, error,
+                                              stackTrace) {
+                                            return Container(
+                                              color: Colors.grey,
+                                              child: Icon(
+                                                  Icons.broken_image,
+                                                  color: Colors.white),
+                                            );
+                                          },
+                                          loadingBuilder: (context,
+                                              child, loadingProgress) {
+                                            if (loadingProgress == null)
+                                              return child;
+                                            return Center(
+                                              child:
+                                              CircularProgressIndicator(
+                                                value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                    null
+                                                    ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                    : null,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      )
+                                          : Text(
+                                        chat.message!,
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0, vertical: 4.0),
+                                    child: Text(
+                                      formattedTime,
+                                      style: const TextStyle(
+                                          color: Colors.grey, fontSize: 12),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
                     ),
                   );
@@ -173,37 +255,45 @@ class ChatScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: controller.txtmessage,
-                decoration: InputDecoration(
-                  focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black)),
-                  border: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black)),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      Map<String, dynamic> chatdata = {
-                        'sender': GoogleSignInServices.googleSignInServices
-                            .currentUser()!
-                            .email,
-                        'receiver': controller.receiveremail.value,
-                        'message': controller.txtmessage.text,
-                        'timestamp': DateTime.now(),
-                      };
-
-                      ChatServices.chatServices.insertchat(
-                          chatdata,
-                          GoogleSignInServices.googleSignInServices
-                              .currentUser()!
-                              .email!,
-                          controller.receiveremail.value);
-                      controller.txtmessage.clear();
-                    },
-                    icon: const Icon(Icons.send),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.image),
+                    onPressed: () => controller.pickImage(),
                   ),
-                ),
+                  Expanded(
+                    child: TextField(
+                      controller: controller.txtmessage,
+                      decoration: InputDecoration(
+                        hintText: 'Type a Message',
+                        hintStyle: TextStyle(
+                            color: Colors.grey, fontWeight: FontWeight.bold),
+                        focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black)),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: themeController.isDarkMode.value
+                                    ? Colors.white
+                                    : Colors.white)),
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      controller.sendMessage(controller.txtmessage.text);
+                    },
+                    child: Text(
+                      'Send',
+                      style: TextStyle(
+                          color: Colors.indigo,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          letterSpacing: 1),
+                    ),
+                  ),
+                ],
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:pr_8_chat_app/view/screen/signup/signup_screen.dart';
 
 import '../../../controller/auth_controller.dart';
+import '../../../controller/theme_controller.dart';
 import '../../../firebase_services/google_services.dart';
 import '../../../firebase_services/user_services.dart';
 import '../../../utils/userlist.dart';
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthController controller = Get.put(AuthController());
+    final ThemeController themeController = Get.put(ThemeController());
     return Scaffold(
       drawer: Drawer(
         child: FutureBuilder(
@@ -33,7 +35,7 @@ class HomeScreen extends StatelessWidget {
             }
 
             Map<String, dynamic> currentuser =
-            snapshot.data?.data() as Map<String, dynamic>;
+                snapshot.data?.data() as Map<String, dynamic>;
             return Column(
               children: [
                 Padding(
@@ -44,8 +46,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 Text(currentuser['name']),
-
-                Text(currentuser['email']??"No email"),
+                Text(currentuser['email'] ?? "No email"),
               ],
             );
           },
@@ -88,15 +89,20 @@ class HomeScreen extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: const Color(0xffE9E8E8),
+
+                color: themeController.isDarkMode.value
+                    ? Color(0xff333333)
+                    : Color(0xffE9E8E8),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Image.asset('assets/img/ai.png'),
-                  const Text(
+                   Text(
                     'Ask Meta AI or Search',
-                    style: TextStyle(color: Colors.black, fontSize: 16),
+                    style: TextStyle(color: themeController.isDarkMode.value
+                        ? Colors.white
+                        : Colors.black, fontSize: 16),
                   ),
                 ],
               ),
@@ -117,16 +123,16 @@ class HomeScreen extends StatelessWidget {
                 Text(
                   'Messages',
                   style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                      ),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                  ),
                 ),
                 Text(
                   'Requests',
                   style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                ),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                  ),
                 ),
               ],
             ),
@@ -169,9 +175,8 @@ class HomeScreen extends StatelessWidget {
                             ),
                             title: Text(user['name'] ?? 'No Name'),
                             subtitle: Text(
-                              //'${user['email'] ?? 'No timestamp'} }',
-                              'Sent 2h age'
-                            ),
+                                //'${user['email'] ?? 'No timestamp'} }',
+                                'Sent 2h age'),
                             trailing: Icon(Icons.camera_alt_outlined),
                           ),
                         );
