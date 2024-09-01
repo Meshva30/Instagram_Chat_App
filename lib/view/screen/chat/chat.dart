@@ -71,26 +71,24 @@ class ChatScreen extends StatelessWidget {
                     child: Column(
                       children: List.generate(
                         chatlist.length,
-                            (index) {
+                        (index) {
                           var chat = chatlist[index];
                           var formattedTime = chat.timestamp != null
                               ? DateFormat('hh:mm a')
-                              .format(chat.timestamp!.toDate())
+                                  .format(chat.timestamp!.toDate())
                               : '';
 
                           return Align(
                             alignment: (chat.sender ==
-                                GoogleSignInServices
-                                    .googleSignInServices
-                                    .currentUser()!
-                                    .email
+                                    GoogleSignInServices.googleSignInServices
+                                        .currentUser()!
+                                        .email
                                 ? Alignment.centerRight
                                 : Alignment.centerLeft),
                             child: GestureDetector(
                               onLongPress: () {
                                 if (chat.sender ==
-                                    GoogleSignInServices
-                                        .googleSignInServices
+                                    GoogleSignInServices.googleSignInServices
                                         .currentUser()!
                                         .email) {
                                   showMenu(
@@ -115,11 +113,11 @@ class ChatScreen extends StatelessWidget {
                                                       'Edit Message'),
                                                   content: TextField(
                                                     controller:
-                                                    controller.txtedit,
+                                                        controller.txtedit,
                                                     decoration:
-                                                    const InputDecoration(
+                                                        const InputDecoration(
                                                       hintText:
-                                                      'Enter your edited message',
+                                                          'Enter your edited message',
                                                     ),
                                                   ),
                                                   actions: [
@@ -136,7 +134,6 @@ class ChatScreen extends StatelessWidget {
                                                               .value,
                                                           message: controller
                                                               .txtedit.text,
-
                                                         );
                                                         Get.back();
                                                       },
@@ -147,7 +144,7 @@ class ChatScreen extends StatelessWidget {
                                                         Get.back();
                                                       },
                                                       child:
-                                                      const Text('Cancel'),
+                                                          const Text('Cancel'),
                                                     ),
                                                   ],
                                                 );
@@ -177,10 +174,10 @@ class ChatScreen extends StatelessWidget {
                               },
                               child: Column(
                                 crossAxisAlignment: chat.sender ==
-                                    GoogleSignInServices
-                                        .googleSignInServices
-                                        .currentUser()!
-                                        .email
+                                        GoogleSignInServices
+                                            .googleSignInServices
+                                            .currentUser()!
+                                            .email
                                     ? CrossAxisAlignment.end
                                     : CrossAxisAlignment.start,
                                 children: [
@@ -190,47 +187,47 @@ class ChatScreen extends StatelessWidget {
                                       padding: const EdgeInsets.all(8.0),
                                       child: chat.isImage == true
                                           ? ClipRRect(
-                                        borderRadius:
-                                        BorderRadius.circular(8),
-                                        child: Image.network(
-                                          chat.message!,
-                                          fit: BoxFit.cover,
-                                          width: 150,
-                                          height: 150,
-                                          errorBuilder: (context, error,
-                                              stackTrace) {
-                                            return Container(
-                                              color: Colors.grey,
-                                              child: Icon(
-                                                  Icons.broken_image,
-                                                  color: Colors.white),
-                                            );
-                                          },
-                                          loadingBuilder: (context,
-                                              child, loadingProgress) {
-                                            if (loadingProgress == null)
-                                              return child;
-                                            return Center(
-                                              child:
-                                              CircularProgressIndicator(
-                                                value: loadingProgress
-                                                    .expectedTotalBytes !=
-                                                    null
-                                                    ? loadingProgress
-                                                    .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                    : null,
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: Image.network(
+                                                chat.message!,
+                                                fit: BoxFit.cover,
+                                                width: 150,
+                                                height: 150,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  return Container(
+                                                    color: Colors.grey,
+                                                    child: Icon(
+                                                        Icons.broken_image,
+                                                        color: Colors.white),
+                                                  );
+                                                },
+                                                loadingBuilder: (context, child,
+                                                    loadingProgress) {
+                                                  if (loadingProgress == null)
+                                                    return child;
+                                                  return Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      value: loadingProgress
+                                                                  .expectedTotalBytes !=
+                                                              null
+                                                          ? loadingProgress
+                                                                  .cumulativeBytesLoaded /
+                                                              loadingProgress
+                                                                  .expectedTotalBytes!
+                                                          : null,
+                                                    ),
+                                                  );
+                                                },
                                               ),
-                                            );
-                                          },
-                                        ),
-                                      )
+                                            )
                                           : Text(
-                                        chat.message!,
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                      ),
+                                              chat.message!,
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                            ),
                                     ),
                                   ),
                                   Padding(
@@ -255,43 +252,46 @@ class ChatScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.image),
-                    onPressed: () => controller.pickImage(),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      controller: controller.txtmessage,
-                      decoration: InputDecoration(
-                        hintText: 'Type a Message',
-                        hintStyle: TextStyle(
-                            color: Colors.grey, fontWeight: FontWeight.bold),
-                        focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black)),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: themeController.isDarkMode.value
-                                    ? Colors.white
-                                    : Colors.white)),
-                      ),
+              child: Container(
+                height: 50,
+                child: TextField(
+
+                  controller: controller.txtmessage,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.all(10),
+                    prefixIcon: IconButton(
+                      onPressed: () {
+                        controller.pickImage();
+                      },
+                      icon: Icon(Icons.image),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      controller.sendMessage(controller.txtmessage.text);
-                    },
-                    child: Text(
-                      'Send',
-                      style: TextStyle(
-                          color: Colors.indigo,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          letterSpacing: 1),
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        controller.sendMessage(controller.txtmessage.text);
+                      },
+                      // child: Text(
+                      //   'Send',
+                      //   style: TextStyle(
+                      //       fontWeight: FontWeight.bold,
+                      //       color: Colors.indigo,
+                      //       fontSize: 18,
+                      //       letterSpacing: 1),
+                      // ),
+                      child: Icon(Icons.send),
                     ),
+                    hintText: 'Type a Message',
+                    hintStyle: TextStyle(
+                        color: Colors.grey, fontWeight: FontWeight.bold),
+                    focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black,)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            color: themeController.isDarkMode.value
+                                ? Colors.white
+                                : Colors.white)),
                   ),
-                ],
+                ),
               ),
             ),
           ],
