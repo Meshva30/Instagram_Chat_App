@@ -1,4 +1,4 @@
-# Chat App
+# Instagram App
 
 A feature-rich chat application built using **Flutter** and **Firebase**. This app supports real-time messaging, Google authentication, mobile number login, and email login. Users can send messages to others within the app, edit and delete their messages, and see message read statuses with blue ticks. It also includes customizable themes, and the ability to view user details in the app's drawer.
 
@@ -69,9 +69,10 @@ Include some screenshots or a demo GIF here to showcase the app.
 
 ### **Light Mode : -** 
 <p align='center'>
-  
+  <img src='https://github.com/user-attachments/assets/4ec0275c-9d44-413e-aa82-54e19867c5d0' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/292730be-6804-4789-a063-72157dcfd02f' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/b08d828b-6ddc-427f-b3d9-9d76ede5e1cc' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src='https://github.com/user-attachments/assets/d5b81517-3d0c-4965-afcf-44f0d23d6679' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/84aa1875-041d-4bce-a2cf-a20819fa2726' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/fd8ccb0d-41ad-43f1-b073-fcd3cde21d32' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/332cd929-50a4-4d06-a252-21cf729071ef' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -79,7 +80,9 @@ Include some screenshots or a demo GIF here to showcase the app.
   <img src='https://github.com/user-attachments/assets/4d5c1ecd-57ad-460d-bd83-d73f68db73f1' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/05e2093a-e8fa-4b15-9227-41de60fd7484' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/32bd1d69-2ffd-4341-abcd-253573556aae' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
+ 
   
+
  
 </p>
 
@@ -87,14 +90,16 @@ Include some screenshots or a demo GIF here to showcase the app.
 
 
 <p align ='center'>
+   <img src='https://github.com/user-attachments/assets/0343f8a7-6cee-4abc-b9ab-dee0a340cfd1' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
+   <img src='https://github.com/user-attachments/assets/82d1b4c8-f84e-42d8-8093-d7f7c4a23dc3' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
+   <img src='https://github.com/user-attachments/assets/9dce8078-b8b2-489b-b01b-e15e13090758' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
    <img src='https://github.com/user-attachments/assets/2eb2edf1-554f-4ce7-85cb-31f4080b31a8' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/9311d6d2-f261-4e03-876f-bb85228bf3b1' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/f2a7c914-a1e4-4740-9bcf-f3f3aabe5ff9' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/c39eb669-a424-4988-8d3e-df4e4d9c549c' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src='https://github.com/user-attachments/assets/6e49acb2-843b-4f7f-9470-6ca335d0f92f' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
-  
-    
+  <img src='https://github.com/user-attachments/assets/6e49acb2-843b-4f7f-9470-6ca335d0f92f' width=240> &nbsp;&nbsp;&nbsp;&nbsp;   
   <img src='https://github.com/user-attachments/assets/92eef036-1f58-401e-9c4c-c745438e3078' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src='https://github.com/user-attachments/assets/eb39e397-5ee9-44d4-8540-82085f5794a2' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/a43c5f86-0167-4139-acae-65645d8f8324' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
  
 
