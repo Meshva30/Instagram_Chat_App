@@ -78,26 +78,29 @@ Include some screenshots or a demo GIF here to showcase the app.
   <img src='https://github.com/user-attachments/assets/b807b083-35de-4802-a292-aa0c7bc4fbc1' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/4d5c1ecd-57ad-460d-bd83-d73f68db73f1' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/05e2093a-e8fa-4b15-9227-41de60fd7484' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src='https://github.com/user-attachments/assets/32bd1d69-2ffd-4341-abcd-253573556aae' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   
-  
+ 
 </p>
 
 ### **Dark Mode : -**
 
 
 <p align ='center'>
+   <img src='https://github.com/user-attachments/assets/2eb2edf1-554f-4ce7-85cb-31f4080b31a8' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/9311d6d2-f261-4e03-876f-bb85228bf3b1' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/f2a7c914-a1e4-4740-9bcf-f3f3aabe5ff9' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/c39eb669-a424-4988-8d3e-df4e4d9c549c' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src='https://github.com/user-attachments/assets/6e49acb2-843b-4f7f-9470-6ca335d0f92f' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src='https://github.com/user-attachments/assets/a43c5f86-0167-4139-acae-65645d8f8324' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
   
+    
   <img src='https://github.com/user-attachments/assets/92eef036-1f58-401e-9c4c-c745438e3078' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src='https://github.com/user-attachments/assets/a43c5f86-0167-4139-acae-65645d8f8324' width=240> &nbsp;&nbsp;&nbsp;&nbsp;
  
+
 </p>
 
-
-
 ## Video
+https://github.com/user-attachments/assets/a1e59b7d-7b88-48c4-a27b-b72a588be9f1
 
 
